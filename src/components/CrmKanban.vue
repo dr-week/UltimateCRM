@@ -4,6 +4,8 @@
       v-for="stage in STAGES" 
       :key="stage.id" 
       class="kanban-column glass-panel"
+      @dragover.prevent
+      @drop="onDrop($event, stage.id)"
     >
       <div class="column-header">
         <div class="header-title">
@@ -14,23 +16,25 @@
         <div class="column-sum">${{ getStageTotalValue(stage.id).toLocaleString() }}</div>
       </div>
 
-      <draggable
-        :list="getLeadsForStage(stage.id)"
-        group="deals"
-        item-key="id"
-        class="column-cards"
-        @change="(evt) => onDraggableChange(evt, stage.id)"
-      >
-        <template #item="{ element: lead }">
+      <div class="column-cards">
+        <div
+          v-for="lead in getLeadsForStage(stage.id)"
+          :key="lead.id"
+          draggable="true"
+          @dragstart="onDragStart($event, lead.id)"
+        >
           <CrmDealCard :lead="lead" @click="store.openLeadDetails(lead)" />
-        </template>
-      </draggable>
+        </div>
+
+        <div v-if="getLeadsForStage(stage.id).length === 0" class="empty-column">
+          <span>No deals in this stage</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import draggable from 'vuedraggable';
 import { useCrmStore } from '@/stores/crmStore';
 import { StageType } from '@/types/lead';
 import CrmDealCard from '@/components/kanban/CrmDealCard.vue';
@@ -55,11 +59,23 @@ function getStageTotalValue(stageId: StageType): number {
   return getLeadsForStage(stageId).reduce((sum, l) => sum + l.value, 0);
 }
 
-function onDraggableChange(evt: any, targetStage: StageType) {
-  if (evt.added) {
-    const lead = evt.added.element;
-    store.updateStage(lead.id, targetStage);
-    emit('notify', `Moved "${lead.name}" to ${targetStage}`);
+function onDragStart(event: DragEvent, leadId: string) {
+  if (event.dataTransfer) {
+    event.dataTransfer.setData('text/plain', leadId);
+    event.dataTransfer.effectAllowed = 'move';
+  }
+}
+
+function onDrop(event: DragEvent, targetStage: StageType) {
+  if (event.dataTransfer) {
+    const leadId = event.dataTransfer.getData('text/plain');
+    if (leadId) {
+      const lead = store.leads.find(l => l.id === leadId);
+      store.updateStage(leadId, targetStage);
+      if (lead) {
+        emit('notify', `Moved "${lead.name}" to ${targetStage}`);
+      }
+    }
   }
 }
 </script>
@@ -131,5 +147,14 @@ function onDraggableChange(evt: any, targetStage: StageType) {
   overflow-y: auto;
   flex: 1;
   min-height: 150px;
+}
+
+.empty-column {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-subtle);
+  font-size: 0.8rem;
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 </style>
