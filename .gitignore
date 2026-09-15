@@ -5,7 +5,10 @@ node_modules/
 # Build Output
 dist/
 dist-ssr/
+.nuxt/
+.output/
 *.local
+
 
 # Logs
 npm-debug.log*

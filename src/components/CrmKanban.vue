@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { useCrmStore } from '@/stores/crmStore';
-import { StageType } from '@/types/lead';
+import { StageType, Lead } from '@/types/lead';
 import CrmDealCard from '@/components/kanban/CrmDealCard.vue';
 
 const emit = defineEmits(['notify']);
@@ -51,12 +51,12 @@ const STAGES: { id: StageType; title: string; color: string }[] = [
   { id: 'Closed Lost', title: 'Closed Lost', color: '#fb7185' }
 ];
 
-function getLeadsForStage(stageId: StageType) {
-  return store.filteredLeads.filter(l => l.status === stageId);
+function getLeadsForStage(stageId: StageType): Lead[] {
+  return store.filteredLeads.filter((l: Lead) => l.status === stageId);
 }
 
 function getStageTotalValue(stageId: StageType): number {
-  return getLeadsForStage(stageId).reduce((sum, l) => sum + l.value, 0);
+  return getLeadsForStage(stageId).reduce((sum: number, l: Lead) => sum + l.value, 0);
 }
 
 function onDragStart(event: DragEvent, leadId: string) {
@@ -70,7 +70,7 @@ function onDrop(event: DragEvent, targetStage: StageType) {
   if (event.dataTransfer) {
     const leadId = event.dataTransfer.getData('text/plain');
     if (leadId) {
-      const lead = store.leads.find(l => l.id === leadId);
+      const lead = store.leads.find((l: Lead) => l.id === leadId);
       store.updateStage(leadId, targetStage);
       if (lead) {
         emit('notify', `Moved "${lead.name}" to ${targetStage}`);
@@ -78,6 +78,7 @@ function onDrop(event: DragEvent, targetStage: StageType) {
     }
   }
 }
+
 </script>
 
 <style scoped>

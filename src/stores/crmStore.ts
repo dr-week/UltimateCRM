@@ -23,12 +23,14 @@ export const useCrmStore = defineStore('crm', {
     searchQuery: '',
     selectedStageFilter: 'all',
     isLoading: false,
-    apiConfig: JSON.parse(localStorage.getItem('ultimate_crm_config') || JSON.stringify(DEFAULT_CONFIG)) as ApiConfig
+    apiConfig: (typeof window !== 'undefined' && localStorage.getItem('ultimate_crm_config')
+      ? JSON.parse(localStorage.getItem('ultimate_crm_config')!)
+      : DEFAULT_CONFIG) as ApiConfig
   }),
 
   getters: {
     filteredLeads(state): Lead[] {
-      return state.leads.filter(lead => {
+      return state.leads.filter((lead: Lead) => {
         const matchesSearch = 
           lead.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
           lead.company.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
@@ -42,24 +44,24 @@ export const useCrmStore = defineStore('crm', {
 
     totalPipelineValue(state): number {
       return state.leads
-        .filter(l => l.status !== 'Closed Lost')
-        .reduce((sum, l) => sum + l.value, 0);
+        .filter((l: Lead) => l.status !== 'Closed Lost')
+        .reduce((sum: number, l: Lead) => sum + l.value, 0);
     },
 
     wonPipelineValue(state): number {
       return state.leads
-        .filter(l => l.status === 'Closed Won')
-        .reduce((sum, l) => sum + l.value, 0);
+        .filter((l: Lead) => l.status === 'Closed Won')
+        .reduce((sum: number, l: Lead) => sum + l.value, 0);
     },
 
     activeDealsCount(state): number {
-      return state.leads.filter(l => l.status !== 'Closed Won' && l.status !== 'Closed Lost').length;
+      return state.leads.filter((l: Lead) => l.status !== 'Closed Won' && l.status !== 'Closed Lost').length;
     },
 
     winRate(state): number {
-      const closed = state.leads.filter(l => l.status === 'Closed Won' || l.status === 'Closed Lost');
+      const closed = state.leads.filter((l: Lead) => l.status === 'Closed Won' || l.status === 'Closed Lost');
       if (closed.length === 0) return 0;
-      const won = state.leads.filter(l => l.status === 'Closed Won').length;
+      const won = state.leads.filter((l: Lead) => l.status === 'Closed Won').length;
       return Math.round((won / closed.length) * 100);
     }
   },
@@ -76,7 +78,7 @@ export const useCrmStore = defineStore('crm', {
     },
 
     async updateStage(leadId: string, newStage: StageType) {
-      const lead = this.leads.find(l => l.id === leadId);
+      const lead = this.leads.find((l: Lead) => l.id === leadId);
       if (lead) {
         lead.status = newStage;
         lead.lastContacted = 'Just now';
@@ -92,12 +94,13 @@ export const useCrmStore = defineStore('crm', {
 
     async removeLead(leadId: string) {
       await apiAdapter.deleteLead(this.apiConfig, leadId);
-      this.leads = this.leads.filter(l => l.id !== leadId);
+      this.leads = this.leads.filter((l: Lead) => l.id !== leadId);
       if (this.selectedLead?.id === leadId) {
         this.isDrawerOpen = false;
         this.selectedLead = null;
       }
     },
+
 
     async addLogActivity(leadId: string, type: 'call' | 'email' | 'meeting' | 'note', title: string, description: string) {
       const newAct = await apiAdapter.addActivity(this.apiConfig, {
@@ -122,9 +125,12 @@ export const useCrmStore = defineStore('crm', {
 
     saveConfig(newConfig: ApiConfig) {
       this.apiConfig = newConfig;
-      localStorage.setItem('ultimate_crm_config', JSON.stringify(newConfig));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ultimate_crm_config', JSON.stringify(newConfig));
+      }
       this.isSettingsOpen = false;
       this.fetchLeads();
     }
+
   }
 });

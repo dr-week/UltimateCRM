@@ -20,16 +20,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useCrmStore } from '~/stores/crmStore';
-import CrmHeader from '~/components/CrmHeader.vue';
-import CrmMetrics from '~/components/CrmMetrics.vue';
-import CrmAnalyticsChart from '~/components/CrmAnalyticsChart.vue';
-import CrmKanban from '~/components/CrmKanban.vue';
-import CrmTable from '~/components/CrmTable.vue';
-import CrmLeadDrawer from '~/components/CrmLeadDrawer.vue';
-import CrmSettingsModal from '~/components/CrmSettingsModal.vue';
-import CrmNewLeadModal from '~/components/CrmNewLeadModal.vue';
-import CrmToast from '~/components/CrmToast.vue';
+import { useCrmStore } from '@/stores/crmStore';
+import CrmHeader from '@/components/CrmHeader.vue';
+import CrmMetrics from '@/components/CrmMetrics.vue';
+import CrmAnalyticsChart from '@/components/CrmAnalyticsChart.vue';
+import CrmKanban from '@/components/CrmKanban.vue';
+import CrmTable from '@/components/CrmTable.vue';
+import CrmLeadDrawer from '@/components/CrmLeadDrawer.vue';
+import CrmSettingsModal from '@/components/CrmSettingsModal.vue';
+import CrmNewLeadModal from '@/components/CrmNewLeadModal.vue';
+import CrmToast from '@/components/CrmToast.vue';
 
 const store = useCrmStore();
 const toastRef = ref<any>(null);

@@ -21,6 +21,7 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@types/node": "^26.5.1",
     "typescript": "^5.2.2",
     "vue-tsc": "^2.0.6"
   }

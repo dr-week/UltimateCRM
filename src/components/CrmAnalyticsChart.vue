@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useCrmStore } from '@/stores/crmStore';
-import { StageType } from '@/types/crm';
+import { StageType, Lead } from '@/types/crm';
 import { BarChart3 } from 'lucide-vue-next';
 
 const store = useCrmStore();
@@ -50,7 +50,7 @@ const stageMetrics = computed(() => {
 
   return STAGES.map(s => {
     const totalValue = getStageValue(s.id);
-    const count = store.leads.filter(l => l.status === s.id).length;
+    const count = store.leads.filter((l: Lead) => l.status === s.id).length;
     const percentage = Math.max(Math.round((totalValue / maxVal) * 100), count > 0 ? 8 : 0);
 
     return {
@@ -65,9 +65,10 @@ const stageMetrics = computed(() => {
 
 function getStageValue(stageId: StageType): number {
   return store.leads
-    .filter(l => l.status === stageId)
-    .reduce((sum, l) => sum + l.value, 0);
+    .filter((l: Lead) => l.status === stageId)
+    .reduce((sum: number, l: Lead) => sum + l.value, 0);
 }
+
 </script>
 
 <style scoped>

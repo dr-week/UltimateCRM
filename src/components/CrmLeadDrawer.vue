@@ -146,7 +146,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useCrmStore } from '@/stores/crmStore';
-import { StageType } from '@/types/crm';
+import { StageType, Activity } from '@/types/crm';
 import { X, Activity as ActivityIcon, Clock, Phone, Mail, Users, FileText, Building2 } from 'lucide-vue-next';
 import CrmClientPortalModal from '@/components/CrmClientPortalModal.vue';
 
@@ -157,8 +157,9 @@ const lead = computed(() => store.selectedLead);
 
 const leadActivities = computed(() => {
   if (!lead.value) return [];
-  return store.activities.filter(a => a.leadId === lead.value!.id);
+  return store.activities.filter((a: Activity) => a.leadId === lead.value!.id);
 });
+
 
 const activityType = ref<'call' | 'email' | 'meeting' | 'note'>('note');
 const activityTitle = ref('');
