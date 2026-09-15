@@ -12,6 +12,7 @@
   - [Color Tokens](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/design/TOKENS.md)
   - [Glassmorphic Utilities](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/design/UTILITIES.md)
 
-- **Workflows**:
+- **Workflows & Launcher**:
+  - [Smart Batch Launcher Guide](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LAUNCHER.md)
   - [Lead Lifecycle Stages](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LIFECYCLE.md)
   - [Multi-Website Embed Script](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/MULTI_SITE_EMBED.md)
