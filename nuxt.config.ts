@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   devtools: { enabled: false },
   ssr: false,
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@vueuse/nuxt'],
+
   css: ['~/assets/main.css'],
   app: {
     head: {

@@ -20,9 +20,12 @@ export const useCrmStore = defineStore('crm', {
     isSettingsOpen: false,
     isNewLeadOpen: false,
     viewMode: 'kanban' as 'kanban' | 'table',
+    activeNav: 'kanban' as 'kanban' | 'dashboard' | 'leads' | 'contacts' | 'tasks' | 'calls',
+    isSidebarCollapsed: false,
     searchQuery: '',
     selectedStageFilter: 'all',
     isLoading: false,
+
     apiConfig: (typeof window !== 'undefined' && localStorage.getItem('ultimate_crm_config')
       ? JSON.parse(localStorage.getItem('ultimate_crm_config')!)
       : DEFAULT_CONFIG) as ApiConfig

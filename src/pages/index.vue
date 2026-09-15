@@ -1,16 +1,23 @@
 <template>
-  <div class="app-wrapper">
-    <CrmHeader />
-    <main class="main-content">
-      <CrmMetrics />
-      <CrmAnalyticsChart />
+  <div class="crm-app-layout">
+    <!-- Frappe-Style Left Sidebar -->
+    <CrmSidebar />
 
-      <transition name="fade" mode="out-in">
-        <CrmKanban v-if="store.viewMode === 'kanban'" @notify="showToast" />
-        <CrmTable v-else />
-      </transition>
-    </main>
+    <!-- Main Workspace Column -->
+    <div class="crm-main-viewport">
+      <CrmToolbar />
 
+      <main class="viewport-content">
+        <transition name="fade" mode="out-in">
+          <CrmDashboardView v-if="store.activeNav === 'dashboard'" />
+          <CrmContactsView v-else-if="store.activeNav === 'contacts'" />
+          <CrmKanban v-else-if="store.viewMode === 'kanban'" @notify="showToast" />
+          <CrmTable v-else />
+        </transition>
+      </main>
+    </div>
+
+    <!-- Modals & Drawers -->
     <CrmLeadDrawer />
     <CrmSettingsModal />
     <CrmNewLeadModal />
@@ -21,9 +28,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useCrmStore } from '@/stores/crmStore';
-import CrmHeader from '@/components/CrmHeader.vue';
-import CrmMetrics from '@/components/CrmMetrics.vue';
-import CrmAnalyticsChart from '@/components/CrmAnalyticsChart.vue';
+import CrmSidebar from '@/components/CrmSidebar.vue';
+import CrmToolbar from '@/components/CrmToolbar.vue';
+import CrmDashboardView from '@/components/CrmDashboardView.vue';
+import CrmContactsView from '@/components/CrmContactsView.vue';
 import CrmKanban from '@/components/CrmKanban.vue';
 import CrmTable from '@/components/CrmTable.vue';
 import CrmLeadDrawer from '@/components/CrmLeadDrawer.vue';
@@ -41,7 +49,7 @@ function showToast(msg: string) {
 function handleKeyDown(e: KeyboardEvent) {
   if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
     e.preventDefault();
-    const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+    const searchInput = document.querySelector('.toolbar-search') as HTMLInputElement;
     if (searchInput) searchInput.focus();
   }
 }
@@ -57,26 +65,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.app-wrapper {
-  max-width: 1700px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+.crm-app-layout { display: flex; height: 100vh; width: 100vw; overflow: hidden; background: var(--bg-dark); }
+.crm-main-viewport { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.viewport-content { flex: 1; overflow-y: auto; padding: 1.25rem; }
+.fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 </style>
