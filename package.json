@@ -4,22 +4,24 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
     "sync-schemas": "npx tsx scripts/sync-schemas.ts"
   },
   "dependencies": {
-    "vue": "^3.4.21",
-    "pinia": "^2.1.7",
+    "@nuxt/kit": "^4.5.2",
+    "@nuxt/schema": "^4.5.2",
+    "@pinia/nuxt": "^0.5.1",
     "lucide-vue-next": "^0.359.0",
-    "vuedraggable": "^4.1.0"
+    "nuxt": "^3.11.2",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6",
-    "vue-tsc": "^2.0.6",
-    "tsx": "^4.7.1"
+    "vue-tsc": "^2.0.6"
   }
 }

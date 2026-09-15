@@ -2,11 +2,12 @@
 cd /d "%~dp0\.."
 
 echo ========================================================
-echo        UltimateCRM -- Smart Launcher and Session Manager
+echo        UltimateCRM -- Nuxt 3 Smart Launcher
 echo ========================================================
 echo:
 
-echo [1/3] Running Automated Pre-flight Type Verification...
+echo [1/3] Preparing Nuxt 3 & Running Type Verification...
+call npx nuxi prepare
 call npx vue-tsc --noEmit
 if %errorlevel% neq 0 (
     echo:
@@ -14,7 +15,7 @@ if %errorlevel% neq 0 (
     pause
     exit /b %errorlevel%
 )
-echo [SUCCESS] Type verification passed with 0 errors!
+echo [SUCCESS] Nuxt 3 Type verification passed with 0 errors!
 echo:
 
 echo [2/3] Checking active session on port 3000...
@@ -32,6 +33,6 @@ if defined FOUND_PID (
     exit /b 0
 )
 
-echo [3/3] Starting UltimateCRM Server and Opening Browser...
+echo [3/3] Starting Nuxt 3 Dev Server and Opening Browser...
 start http://localhost:3000
 call npm run dev
