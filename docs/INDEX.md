@@ -1,20 +1,8 @@
-# UltimateCRM Technical Documentation Index
+# UltimateCRM Documentation Index
 
-- **Architecture**:
-  - [Core Pillars](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/architecture/PILLARS.md)
-  - [System Diagram](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/architecture/DIAGRAM.md)
+Precise, high-density technical documentation for UltimateCRM.
 
-- **Adapters**:
-  - [Adapter Interface Contract](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/adapters/INTERFACE.md)
-  - [Step-by-Step Adapter Guide](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/adapters/STEP_BY_STEP.md)
-
-- **Design System**:
-  - [Color Tokens](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/design/TOKENS.md)
-  - [Glassmorphic Utilities](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/design/UTILITIES.md)
-
-- **Workflows & Launcher**:
-  - [Smart Batch Launcher Guide](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LAUNCHER.md)
-  - [Recurring Development Workflow](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/RECURRING_DEVELOPMENT_WORKFLOW.md)
-  - [Lead Lifecycle Stages](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LIFECYCLE.md)
-  - [Multi-Website Embed Script](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/MULTI_SITE_EMBED.md)
-
+- 🏛️ **[Architecture](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/ARCHITECTURE.md)** — Decoupled Nuxt 3 System Diagram & Pillars.
+- 🔌 **[API Adapters](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/API_ADAPTERS.md)** — Adapter Contract & Backend Integration Guide.
+- 🎨 **[Design System](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/DESIGN_SYSTEM.md)** — Directus Glassmorphic CSS Tokens & Utilities.
+- ⚙️ **[Workflows](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/WORKFLOWS.md)** — Lead Lifecycles, Launcher & Multi-Site Embed Script.

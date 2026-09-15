@@ -1,51 +1,27 @@
-# UltimateCRM Technical Architecture
+# System Architecture
 
-**UltimateCRM** is designed as a decoupled, zero-backend-modification CRM frontend built with **Vue 3, TypeScript, Vite, and Pinia**.
-
----
-
-## Architecture Diagram
+UltimateCRM uses a decoupled Nuxt 3 frontend communicating strictly via REST/GraphQL APIs.
 
 ```
-+-------------------------------------------------------------------+
-|                   UltimateCRM Decoupled Frontend                  |
-|                                                                   |
-|   +-------------------+    +-----------------+    +-----------+   |
-|   | Directus UI Theme |    | Kanban / Table  |    | Lead      |   |
-|   | (Glassmorphism)   |    | View Components |    | Drawer    |   |
-|   +---------+---------+    +--------+--------+    +-----+-----+   |
-|             |                       |                   |         |
-|             +-----------------------+-------------------+         |
-|                                     |                             |
-|                           Pinia Store (crmStore)                  |
-|                                     |                             |
-|                        CrmBackendAdapter Interface                |
-+-------------------------------------+-----------------------------+
++-------------------------------------------------------------------------+
+|                  UltimateCRM Decoupled Nuxt 3 App                       |
+|  +--------------------+   +-------------------+   +------------------+  |
+|  | CrmSidebar Frame   |   | CrmToolbar Header |   | Active View Tab  |  |
+|  +---------+----------+   +---------+---------+   +--------+---------+  |
+|            |                        |                      |            |
+|            +------------------------+----------------------+            |
+|                                     |                                   |
+|                           Pinia Store (crmStore)                        |
+|                                     |                                   |
+|                        CrmBackendAdapter Contract                       |
++-------------------------------------+-----------------------------------+
                                       |
               +-----------------------+-----------------------+
-              |                       |                       |
               v                       v                       v
-      +---------------+       +---------------+       +---------------+
-      | Directus REST |       |  Frappe REST  |       |   Mock Data   |
-      |    Adapter    |       |    Adapter    |       |    Adapter    |
-      +---------------+       +---------------+       +---------------+
-              |                       |                       |
-              v                       v                       v
-      Directus Instance       Frappe / ERPNext         Local Memory
+      Directus REST            Frappe REST            Mock Engine
 ```
 
----
-
 ## Core Pillars
-
-### 1. Zero Core Modifications
-- Backends (Directus, Frappe, Odoo, custom Node/Python services) operate in their standard distribution form.
-- Authentication and data transfer happen strictly over HTTP using standard API tokens or API Key/Secret pairs.
-
-### 2. Pluggable Adapters
-- All network interaction is mediated through implementations of the `CrmBackendAdapter` contract interface.
-- Switching backends is zero-downtime and controlled at runtime via a UI setting or environment configuration.
-
-### 3. Maintenance Isolation
-- Reference repositories, third-party schemas, and doc specs are housed in `references/` and `docs/`.
-- Frontend source code (`src/`) remains isolated and clean.
+1. **Zero Backend Modifications**: Standard Directus, Frappe, or custom REST APIs.
+2. **Pluggable Adapters**: Runtime backend switching via UI setting (`apiAdapter.ts`).
+3. **Micro-Component Family Tree**: Modular `.vue` files strictly under 30-50 lines each.
