@@ -14,34 +14,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr 
+        <CrmTableRow 
           v-for="lead in store.filteredLeads" 
           :key="lead.id" 
-          class="table-row"
-          @click="store.openLeadDetails(lead)"
-        >
-          <td class="font-semibold text-white">
-            <div class="contact-cell">
-              <div class="avatar">{{ lead.name.charAt(0) }}</div>
-              <span>{{ lead.name }}</span>
-            </div>
-          </td>
-          <td>{{ lead.company }}</td>
-          <td class="text-muted">{{ lead.email }}</td>
-          <td class="text-muted">{{ lead.phone }}</td>
-          <td>
-            <span :class="['badge', getBadgeClass(lead.status)]">
-              {{ lead.status }}
-            </span>
-          </td>
-          <td class="font-outfit font-bold">${{ lead.value.toLocaleString() }}</td>
-          <td>{{ lead.assignedTo }}</td>
-          <td class="text-right" @click.stop>
-            <button @click="store.removeLead(lead.id)" class="btn-icon btn-danger" title="Delete Deal">
-              <Trash2 :size="14" />
-            </button>
-          </td>
-        </tr>
+          :lead="lead"
+          @open="store.openLeadDetails"
+          @delete="store.removeLead"
+        />
         <tr v-if="store.filteredLeads.length === 0">
           <td colspan="8" class="empty-table">No contacts or deals found matching filter criteria.</td>
         </tr>
@@ -52,21 +31,9 @@
 
 <script setup lang="ts">
 import { useCrmStore } from '@/stores/crmStore';
-import { StageType } from '@/types/crm';
-import { Trash2 } from 'lucide-vue-next';
+import CrmTableRow from '@/components/table/CrmTableRow.vue';
 
 const store = useCrmStore();
-
-function getBadgeClass(status: StageType) {
-  switch (status) {
-    case 'Lead': return 'badge-lead';
-    case 'Qualified': return 'badge-qualified';
-    case 'Proposal': return 'badge-proposal';
-    case 'Negotiation': return 'badge-negotiation';
-    case 'Closed Won': return 'badge-won';
-    case 'Closed Lost': return 'badge-lost';
-  }
-}
 </script>
 
 <style scoped>
@@ -97,45 +64,7 @@ function getBadgeClass(status: StageType) {
   vertical-align: middle;
 }
 
-.table-row {
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.table-row:hover {
-  background: var(--bg-glass-hover);
-}
-
-.contact-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.font-semibold { font-weight: 600; }
-.font-outfit { font-family: 'Outfit', sans-serif; }
-.font-bold { font-weight: 700; }
-.text-muted { color: var(--text-muted); }
-.text-white { color: #ffffff; }
 .text-right { text-align: right; }
-
-.btn-danger:hover {
-  border-color: var(--accent-rose);
-  color: var(--accent-rose);
-}
 
 .empty-table {
   text-align: center;
