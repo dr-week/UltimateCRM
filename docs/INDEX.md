@@ -14,5 +14,7 @@
 
 - **Workflows & Launcher**:
   - [Smart Batch Launcher Guide](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LAUNCHER.md)
+  - [Recurring Development Workflow](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/RECURRING_DEVELOPMENT_WORKFLOW.md)
   - [Lead Lifecycle Stages](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/LIFECYCLE.md)
   - [Multi-Website Embed Script](file:///c:/Users/disha/Documents/CODES/studio/UltimateCRM/docs/workflows/MULTI_SITE_EMBED.md)
+
