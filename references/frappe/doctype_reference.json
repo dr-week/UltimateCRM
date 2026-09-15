@@ -1,0 +1,14 @@
+{
+  "doctype": "CRM Lead",
+  "module": "CRM",
+  "description": "Frappe CRM Lead DocType schema contract for UltimateCRM",
+  "fields": [
+    { "fieldname": "name", "fieldtype": "Data", "reqd": 1 },
+    { "fieldname": "lead_name", "fieldtype": "Data" },
+    { "fieldname": "organization", "fieldtype": "Data" },
+    { "fieldname": "email_id", "fieldtype": "Data" },
+    { "fieldname": "mobile_no", "fieldtype": "Data" },
+    { "fieldname": "status", "fieldtype": "Select", "options": "Lead\nQualified\nProposal\nNegotiation\nClosed Won\nClosed Lost" },
+    { "fieldname": "annual_revenue", "fieldtype": "Currency" }
+  ]
+}
