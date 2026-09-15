@@ -7,7 +7,7 @@
 
     <CrmSearchBar 
       v-model:search-query="store.searchQuery" 
-      v-model:selected-stage="store.selectedStageFilter" 
+      v-model:selected-stage-filter="store.selectedStageFilter" 
     />
 
     <div class="header-right">

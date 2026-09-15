@@ -12,8 +12,8 @@
     </div>
 
     <select 
-      :value="selectedStage" 
-      @change="$emit('update:selectedStage', ($event.target as HTMLSelectElement).value)"
+      :value="selectedStageFilter" 
+      @change="$emit('update:selectedStageFilter', ($event.target as HTMLSelectElement).value)"
       class="input-field stage-select"
     >
       <option value="all">All Pipeline Stages</option>
@@ -32,10 +32,10 @@ import { Search } from 'lucide-vue-next';
 
 defineProps<{
   searchQuery: string;
-  selectedStage: string;
+  selectedStageFilter: string;
 }>();
 
-defineEmits(['update:searchQuery', 'update:selectedStage']);
+defineEmits(['update:searchQuery', 'update:selectedStageFilter']);
 </script>
 
 <style scoped>
