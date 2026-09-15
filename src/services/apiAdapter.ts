@@ -184,7 +184,7 @@ class ApiAdapterService {
   }
 
   async updateLeadStage(config: ApiConfig, leadId: string, newStage: StageType): Promise<void> {
-    const index = this.mockLeads.findIndex(l => l.id === leadId);
+    const index = this.mockLeads.findIndex((l: Lead) => l.id === leadId);
     if (index !== -1) {
       this.mockLeads[index].status = newStage;
       this.mockLeads[index].lastContacted = 'Just now';
@@ -192,15 +192,16 @@ class ApiAdapterService {
   }
 
   async deleteLead(config: ApiConfig, leadId: string): Promise<void> {
-    this.mockLeads = this.mockLeads.filter(l => l.id !== leadId);
+    this.mockLeads = this.mockLeads.filter((l: Lead) => l.id !== leadId);
   }
 
   async getActivities(config: ApiConfig, leadId?: string): Promise<Activity[]> {
     if (leadId) {
-      return this.mockActivities.filter(a => a.leadId === leadId);
+      return this.mockActivities.filter((a: Activity) => a.leadId === leadId);
     }
     return [...this.mockActivities];
   }
+
 
   async addActivity(config: ApiConfig, activity: Omit<Activity, 'id' | 'timestamp'>): Promise<Activity> {
     const newActivity: Activity = {
